@@ -61,6 +61,7 @@ class ComplaintController extends Controller
             "proof" => $path,
             "status" => "process"
         ]);
+        $complaint->load('user');
 
         return response()->json([
             "data" => $complaint,
@@ -94,7 +95,6 @@ class ComplaintController extends Controller
     public function update(Request $request, string $id)
     {
         $complaint = Complaint::with("user")->findOrFail($id);
-        $user = Auth::user();        
 
         if ($request->hasFile("proof")) {
             Storage::disk("public")->delete($complaint->image);
@@ -103,7 +103,6 @@ class ComplaintController extends Controller
             $complaint->proof = $path;
         }
         
-        $complaint->user_id = $user->id;
         $complaint->title = $request->title ?? $complaint->title;
         $complaint->category = $request->category ?? $complaint->category;
         $complaint->description = $request->description ?? $complaint->description;
@@ -113,6 +112,7 @@ class ComplaintController extends Controller
         $complaint->information = $request->information ?? $complaint->information;
         $complaint->result = $request->result ?? $complaint->result;
         $complaint->save();
+        $complaint->load('user');
 
         return response()->json([
             "data" => $complaint,

@@ -30,7 +30,7 @@ class UserController extends Controller
             "username" => $request->username,
             "fullname" => $request->fullname,
             "password" => $request->password,
-            "role" => "resident"
+            "role" => "admin"
         ]);
 
         return response()->json([
@@ -58,7 +58,7 @@ class UserController extends Controller
             return response()->json([
                 "message" => "Nama / Kata Sandi Salah!",
                 "data" => null
-            ], 422);   
+            ], 422);
         }
 
         $token = $user->createToken("access_token")->plainTextToken;
@@ -66,7 +66,7 @@ class UserController extends Controller
             "message" => "Masuk Berhasil!",
             "data" => $user,
             "token" => $token
-        ]);   
+        ]);
     }
 
     public function logout(Request $request)
@@ -76,7 +76,7 @@ class UserController extends Controller
         return response()->json([
             "message" => "Keluar Berhasil!",
             "data" => $user
-        ]);   
+        ]);
     }
 
     public function me()
@@ -85,6 +85,6 @@ class UserController extends Controller
         return response()->json([
             "message" => "Data Berhasil Diambil!",
             "data" => $user
-        ]);   
+        ]);
     }
 }

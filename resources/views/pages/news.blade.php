@@ -125,10 +125,10 @@ const fetchNews = async () => {
         newsBody.innerHTML += `
             <tr>
                 <td>${index + 1}</td>
-                <td style="text-align: justify;">${item.title}</td>
+                <td style="text-align: justify;">${item.title.slice(0, 30)}...</td>
                 <td><img src="/storage/${item.image}" style="width:70px;height:70px;object-fit:cover;border-radius:6px;"></td>
-                <td style="text-align: justify;">${item.description}</td>
-                <td style="text-align: justify;">${item.text}</td>
+                <td style="text-align: justify;">${item.description.slice(0, 30)}...</td>
+                <td style="text-align: justify;">${item.text.slice(0, 30)}...</td>
                 <td>
                     <button class="btn btn-secondary btn-sm text-white" onclick="editNews(${item.id})">Edit</button>
                     <button class="btn btn-danger text-white btn-sm" onclick="deleteNews(${item.id})">Delete</button>

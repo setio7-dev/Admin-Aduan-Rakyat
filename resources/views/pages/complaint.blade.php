@@ -88,7 +88,7 @@
                     </div>
 
                     <div class="d-flex gap-2">
-                        <button type="button" onclick="submitStatus('accepted')" class="btn text-white btn-success w-50">Disetujui</button>
+                        <button type="button" onclick="submitStatus('accepted')" class="btn text-white btn-success w-50">Selesai</button>
                         <button type="button" onclick="submitStatus('rejected')" class="btn text-white btn-danger w-50">Ditolak</button>
                     </div>
                 </form>
@@ -120,7 +120,7 @@ const fetchComplaints = async () => {
                 <td>${index + 1}</td>
                 <td>${item.title}</td>
                 <td>${item.category}</td>
-                <td style="text-align: justify;">${item.description}</td>
+                <td>${item.description.slice(0, 30)}...</td>
                 <td>${item.location}</td>
                 <td><img src="/storage/${item.proof}" style="width:70px;height:70px;object-fit:cover;border-radius:6px;"></td>
                 <td>${statusLabel}</td>
