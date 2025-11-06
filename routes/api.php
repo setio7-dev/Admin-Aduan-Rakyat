@@ -12,6 +12,7 @@ Route::post("/register", [UserController::class, "register"]);
 Route::middleware("auth")->group(function() {
     Route::post("/logout", [UserController::class, "logout"]);
     Route::get("/me", [UserController::class, "me"]);
+    Route::put("/user/update", [UserController::class, "update"]);
 
     Route::resource("/news", NewsController::class);
     Route::resource("/complaints", ComplaintController::class);
