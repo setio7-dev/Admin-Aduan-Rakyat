@@ -87,4 +87,22 @@ class UserController extends Controller
             "data" => $user
         ]);
     }
+
+    public function update(Request $request) 
+    {
+        $auth = Auth::user();
+        $user = User::where("id", $auth->id)->first();
+
+        $user->update([
+            "fullname" => $request->fullname ?? $user->fullname,
+            "username" => $request->username ?? $user->username,
+            "password" => $user->password,
+            "role" => $user->role,
+        ]);
+
+        return response()->json([
+            "message" => "Data Berhasil Diubah!",
+            "data" => null
+        ]);
+    }
 }
