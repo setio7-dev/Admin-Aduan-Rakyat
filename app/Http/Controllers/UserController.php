@@ -30,6 +30,34 @@ class UserController extends Controller
             "username" => $request->username,
             "fullname" => $request->fullname,
             "password" => $request->password,
+            "role" => "resident"
+        ]);
+
+        return response()->json([
+            "message" => "Daftar Berhasil!",
+            "data" => $user
+        ]);
+    }
+
+    public function registerAdmin(Request $request)
+    {
+        $validateData = Validator::make($request->all(), [
+            "username" => 'required|unique:users,username',
+            "fullname" => 'required',
+            "password" => "required"
+        ]);
+
+        if ($validateData->fails()) {
+            return response()->json([
+                "message" => "Data Wajib Diisi!",
+                "data" => null
+            ], 422);
+        }
+
+        $user = User::create([
+            "username" => $request->username,
+            "fullname" => $request->fullname,
+            "password" => $request->password,
             "role" => "admin"
         ]);
 
@@ -88,7 +116,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request) 
+    public function update(Request $request)
     {
         $auth = Auth::user();
         $user = User::where("id", $auth->id)->first();
@@ -99,10 +127,11 @@ class UserController extends Controller
             "password" => $user->password,
             "role" => $user->role,
         ]);
+        $user->find($user->id)->get();
 
         return response()->json([
             "message" => "Data Berhasil Diubah!",
-            "data" => null
+            "data" => $user
         ]);
     }
 }

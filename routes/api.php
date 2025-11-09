@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post("/login", [UserController::class, "login"]);
 Route::post("/register", [UserController::class, "register"]);
+Route::post("/register/admin", [UserController::class, "registerAdmin"]);
 
 Route::middleware("auth")->group(function() {
     Route::post("/logout", [UserController::class, "logout"]);
